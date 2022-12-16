@@ -1,6 +1,7 @@
 package aoc2022
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -26,4 +27,33 @@ func Test_IsEmptyLine_returnsTrueIfTheLineIsEmpty_FalseIfNot(t *testing.T) {
 	lineWithContent := "this is not an empty line"
 	b = IsEmptyLine(lineWithContent)
 	assert.Equal(t, false, b)
+}
+
+func Test_AssignTotalCaloriesToElfs_shouldSetTheTotalCaloriesForEachElfAsDescribedInTheInputFile(t *testing.T) {
+	elfs, err := AssignTotalCaloriesToElfs("test_input")
+	assert.Nil(t, err)
+	assert.Equal(t, 123, elfs[0].calories)
+	assert.Equal(t, 579, elfs[1].calories)
+}
+
+func Test_FindElfCarryingTheMostCalories_returnsTheElfCarryingTheMostCalories(t *testing.T) {
+	var elves []*Elf
+	e1 := NewElf()
+	e2 := NewElf()
+	e3 := NewElf()
+	e1.incrementCalories(1)
+	e2.incrementCalories(2)
+	e3.incrementCalories(3)
+	elves = append(elves, e1)
+	elves = append(elves, e2)
+	elves = append(elves, e3)
+
+	mostCaloricElf := FindElfCarryingTheMostCalories(elves)
+	assert.Equal(t, 3, mostCaloricElf.calories)
+}
+
+func Test_Solve(t *testing.T) {
+	c := Solve("input")
+	fmt.Println(c)
+
 }
