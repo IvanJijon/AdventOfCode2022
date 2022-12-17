@@ -30,7 +30,7 @@ func Test_IsEmptyLine_returnsTrueIfTheLineIsEmpty_FalseIfNot(t *testing.T) {
 }
 
 func Test_AssignTotalCaloriesToElfs_shouldSetTheTotalCaloriesForEachElfAsDescribedInTheInputFile(t *testing.T) {
-	elfs, err := AssignTotalCaloriesToElfs("test_input")
+	elfs, err := AssignTotalCaloriesTo("test_input")
 	assert.Nil(t, err)
 	assert.Equal(t, 123, elfs[0].calories)
 	assert.Equal(t, 579, elfs[1].calories)
@@ -42,14 +42,14 @@ func Test_FindElfCarryingTheMostCalories_returnsTheElfCarryingTheMostCalories(t 
 	e2 := NewElf()
 	e3 := NewElf()
 	e1.incrementCalories(1)
-	e2.incrementCalories(2)
-	e3.incrementCalories(3)
+	e2.incrementCalories(3)
+	e3.incrementCalories(2)
 	elves = append(elves, e1)
 	elves = append(elves, e2)
 	elves = append(elves, e3)
 
 	mostCaloricElf := FindElfCarryingTheMostCalories(elves)
-	assert.Same(t, e3, mostCaloricElf)
+	assert.Same(t, e2, mostCaloricElf)
 }
 
 func Test_Solve(t *testing.T) {
