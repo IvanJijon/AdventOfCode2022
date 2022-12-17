@@ -49,11 +49,10 @@ func Test_FindElfCarryingTheMostCalories_returnsTheElfCarryingTheMostCalories(t 
 	elves = append(elves, e3)
 
 	mostCaloricElf := FindElfCarryingTheMostCalories(elves)
-	assert.Equal(t, 3, mostCaloricElf.calories)
+	assert.Same(t, e3, mostCaloricElf)
 }
 
 func Test_Solve(t *testing.T) {
-	c := Solve("input")
+	c := SolvePartOne("input")
 	fmt.Println(c)
-
 }

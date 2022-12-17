@@ -75,7 +75,7 @@ func FindElfCarryingTheMostCalories(elves []*Elf) *Elf {
 	return max
 }
 
-func Solve(inputFile string) int {
+func SolvePartOne(inputFile string) int {
 	elves, _ := AssignTotalCaloriesToElfs(inputFile)
 	return FindElfCarryingTheMostCalories(elves).calories
 }
