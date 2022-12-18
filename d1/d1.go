@@ -6,63 +6,39 @@ import (
 	"strconv"
 )
 
-type Elf struct {
-	calories int
-}
-
-func NewElf() *Elf {
-	return &Elf{0}
-}
-
-func (e *Elf) incrementCalories(c int) {
-	e.calories += c
-}
-
 func IsEmptyLine(l string) bool {
 	return !(len(l) > 0)
 }
 
-// Sería ideal hacerlo recursivo
-func AssignTotalCaloriesToElfs(inputFile string) ([]*Elf, error) {
-	elfs := InitElfsWithZeroCaloriesFrom(inputFile)
-
+func AssignTotalCaloriesToElvesFrom(inputFile string) ([]*Elf, error) {
 	f, err := os.Open(inputFile)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
-
-	currentElf := 0
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		if !IsEmptyLine(scanner.Text()) {
-			d, _ := strconv.Atoi(scanner.Text())
-			elfs[currentElf].incrementCalories(d)
-			continue
-		}
-		currentElf++
-	}
-
-	return elfs, scanner.Err()
-}
-
-func InitElfsWithZeroCaloriesFrom(inputFile string) []*Elf {
-	f, err := os.Open(inputFile)
-	if err != nil {
-		return nil
-	}
-	defer f.Close()
-
 	scanner := bufio.NewScanner(f)
 
 	var elves []*Elf
-	for scanner.Scan() {
-		if IsEmptyLine(scanner.Text()) {
-			elves = append(elves, NewElf())
-		}
+	elves = AssignTotalCalories(elves, NewElf(), scanner)
+
+	return elves, scanner.Err()
+}
+
+func AssignTotalCalories(elves []*Elf, elf *Elf, scanner *bufio.Scanner) []*Elf {
+	if !scanner.Scan() {
+		return elves
 	}
 
-	return elves
+	if !IsEmptyLine(scanner.Text()) {
+		d, _ := strconv.Atoi(scanner.Text())
+		elf.incrementCalories(d)
+		return AssignTotalCalories(elves, elf, scanner)
+	}
+
+	elves = append(elves, elf)
+	elf = NewElf()
+
+	return AssignTotalCalories(elves, elf, scanner)
 }
 
 func FindElfCarryingTheMostCalories(elves []*Elf) *Elf {
@@ -76,6 +52,6 @@ func FindElfCarryingTheMostCalories(elves []*Elf) *Elf {
 }
 
 func SolvePartOne(inputFile string) int {
-	elves, _ := AssignTotalCaloriesToElfs(inputFile)
+	elves, _ := AssignTotalCaloriesToElvesFrom(inputFile)
 	return FindElfCarryingTheMostCalories(elves).calories
 }
