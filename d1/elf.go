@@ -8,6 +8,12 @@ func NewElf() *Elf {
 	return &Elf{0}
 }
 
-func (e *Elf) incrementCalories(c int) {
+func NewElfWithCalories(c int) *Elf {
+	e := NewElf()
+	e.IncrementCalories(c)
+	return e
+}
+
+func (e *Elf) IncrementCalories(c int) {
 	e.calories += c
 }

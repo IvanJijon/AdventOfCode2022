@@ -7,18 +7,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NewElf_aNewlyCreatedElfShouldHaveZeroCalories(t *testing.T) {
-	e := NewElf()
-	assert.Equal(t, 0, e.calories, "A newly created Elf should have zero calories")
-}
-
-func Test_incrementCalories_shouldIncrementTheCaloriesAnElfIsCarrying(t *testing.T) {
-	e := NewElf()
-	assert.Equal(t, 0, e.calories)
-	e.incrementCalories(1)
-	assert.Equal(t, 1, e.calories)
-}
-
 func Test_IsEmptyLine_returnsTrueIfTheLineIsEmpty_FalseIfNot(t *testing.T) {
 	emptyLine := ""
 	b := IsEmptyLine(emptyLine)
@@ -41,9 +29,9 @@ func Test_FindElfCarryingTheMostCalories_returnsTheElfCarryingTheMostCalories(t 
 	e1 := NewElf()
 	e2 := NewElf()
 	e3 := NewElf()
-	e1.incrementCalories(1)
-	e2.incrementCalories(3)
-	e3.incrementCalories(2)
+	e1.IncrementCalories(1)
+	e2.IncrementCalories(3)
+	e3.IncrementCalories(2)
 	elves = append(elves, e1)
 	elves = append(elves, e2)
 	elves = append(elves, e3)

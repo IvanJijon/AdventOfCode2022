@@ -31,7 +31,7 @@ func AssignTotalCalories(elves []*Elf, elf *Elf, scanner *bufio.Scanner) []*Elf 
 
 	if !IsEmptyLine(scanner.Text()) {
 		d, _ := strconv.Atoi(scanner.Text())
-		elf.incrementCalories(d)
+		elf.IncrementCalories(d)
 		return AssignTotalCalories(elves, elf, scanner)
 	}
 
