@@ -8,7 +8,7 @@ import (
 )
 
 func IsEmptyLine(l string) bool {
-	return !(len(l) > 0)
+	return (len(l) == 0)
 }
 
 func AssignTotalCaloriesToElvesFrom(inputFile string) ([]*Elf, error) {
