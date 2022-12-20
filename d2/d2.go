@@ -45,7 +45,7 @@ func translateABCtoShape(s string) (shape, error) {
 }
 
 // To-do list:
-// - Create
+// - Create a type shape with constants rock, paper, scissors
 // - Create translating functions XYZ or ABC -> rock, paper, scissors
 // - Create a type round with oponentShape, myShape and outcome
 // - Create a type outcome and constants win, draw,lose
@@ -58,3 +58,5 @@ func translateABCtoShape(s string) (shape, error) {
 // ...
 // - Create a way to read the outcome of a round
 //  based on both my oponent's shape and mine
+// - Create a function that calculates the score of a round
+// - Find a way to keep track of the score
