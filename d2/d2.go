@@ -1,6 +1,11 @@
 package d2
 
-import "errors"
+import (
+	"bufio"
+	"errors"
+	"os"
+	"strings"
+)
 
 type shape string
 
@@ -87,6 +92,35 @@ func scenarioScore(om shape, mm shape) (int, error) {
 		}
 	}
 	return -1, errors.New("scenario not found")
+}
+
+func SolvePartOne(inputFile string) (int, error) {
+	f, err := os.Open(inputFile)
+	if err != nil {
+		return -1, err
+	}
+	defer f.Close()
+	scanner := bufio.NewScanner(f)
+
+	score := 0
+	for scanner.Scan() {
+		moves := strings.Fields(scanner.Text())
+		om, err := translateABCtoShape(moves[0])
+		if err != nil {
+			return -1, err
+		}
+		mm, err := translateXYZtoShape(moves[1])
+		if err != nil {
+			return -1, err
+		}
+		s, err := scenarioScore(om, mm)
+		if err != nil {
+			return -1, err
+		}
+		score += s
+	}
+
+	return score, err
 }
 
 // To-do list:

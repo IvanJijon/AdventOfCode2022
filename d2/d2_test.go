@@ -112,3 +112,9 @@ func Test_scenarioScore(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, 9, score)
 }
+
+func Test_SolvePartOne(t *testing.T) {
+	solution, err := SolvePartOne("input")
+	assert.Nil(t, err)
+	assert.Equal(t, 10718, solution)
+}
