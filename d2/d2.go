@@ -56,28 +56,37 @@ type round struct {
 	oponentMove shape
 	myMove      shape
 	outcome     outcome
+	score       int
 }
 
 var scenariosTable = []*round{
-	{rock, rock, draw},
-	{rock, paper, win},
-	{rock, scissors, lose},
-	{paper, rock, lose},
-	{paper, paper, draw},
-	{paper, scissors, win},
-	{scissors, rock, win},
-	{scissors, paper, lose},
-	{scissors, scissors, draw},
+	{rock, rock, draw, 4},
+	{rock, paper, win, 8},
+	{rock, scissors, lose, 3},
+	{paper, rock, lose, 1},
+	{paper, paper, draw, 5},
+	{paper, scissors, win, 9},
+	{scissors, rock, win, 7},
+	{scissors, paper, lose, 2},
+	{scissors, scissors, draw, 6},
 }
 
 func findOutcome(om shape, mm shape) (outcome, error) {
-
 	for _, scenario := range scenariosTable {
 		if scenario.oponentMove == om && scenario.myMove == mm {
 			return scenario.outcome, nil
 		}
 	}
 	return outcome(""), errors.New("scenario not found")
+}
+
+func scenarioScore(om shape, mm shape) (int, error) {
+	for _, scenario := range scenariosTable {
+		if scenario.oponentMove == om && scenario.myMove == mm {
+			return scenario.score, nil
+		}
+	}
+	return -1, errors.New("scenario not found")
 }
 
 // To-do list:
@@ -93,6 +102,7 @@ func findOutcome(om shape, mm shape) (outcome, error) {
 // 		scissors	|  scissors	| 	draw
 // ...
 // - Create a way to read the outcome of a round
-//  based on both my oponent's shape and mine
-// - Create a function that calculates the score of a round
+//  based on both my oponent's move and mine
+// - Create a way to retrieve the score I made in a round
+//  based on both my oponent's move and mine
 // - Find a way to keep track of the score

@@ -83,3 +83,32 @@ func Test_findOutcome(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, win, o)
 }
+
+func Test_scenarioScore(t *testing.T) {
+	_, err := scenarioScore(shape(""), shape(""))
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	_, err = scenarioScore(rock, shape(""))
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	_, err = scenarioScore(shape(""), rock)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	score, err := scenarioScore(rock, rock)
+	assert.Nil(t, err)
+	assert.Equal(t, 4, score)
+
+	score, err = scenarioScore(rock, scissors)
+	assert.Nil(t, err)
+	assert.Equal(t, 3, score)
+
+	score, err = scenarioScore(paper, scissors)
+	assert.Nil(t, err)
+	assert.Equal(t, 9, score)
+}
