@@ -1,6 +1,7 @@
-package aoc2022
+package d1
 
 import (
+	"aoc2022/utils"
 	"bufio"
 	"os"
 	"strconv"
@@ -54,4 +55,22 @@ func FindElfCarryingTheMostCalories(elves []*Elf) *Elf {
 func SolvePartOne(inputFile string) int {
 	elves, _ := AssignTotalCaloriesToElvesFrom(inputFile)
 	return FindElfCarryingTheMostCalories(elves).calories
+}
+
+func RemoveElfFromSlice(e *Elf, slice []*Elf) []*Elf {
+	return utils.RemoveElementFromSlice(e, slice)
+}
+
+func SolvePartTwo(inputFile string) int {
+	elves, _ := AssignTotalCaloriesToElvesFrom(inputFile)
+
+	e1 := FindElfCarryingTheMostCalories(elves)
+
+	elves = RemoveElfFromSlice(e1, elves)
+	e2 := FindElfCarryingTheMostCalories(elves)
+
+	elves = RemoveElfFromSlice(e2, elves)
+	e3 := FindElfCarryingTheMostCalories(elves)
+
+	return e1.calories + e2.calories + e3.calories
 }
