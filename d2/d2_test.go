@@ -8,7 +8,7 @@ import (
 )
 
 func Test_translateXYZtoShape_shouldReturnTheCorrespondingRockPaperScissorsShapeForXYZ(t *testing.T) {
-	_, err := shape.translateXYZtoShape("")
+	_, err := translateXYZtoShape("")
 	if assert.Error(t, err) {
 		assert.Equal(t, errors.New("shape not found"), err)
 	}
@@ -53,4 +53,33 @@ func Test_translateABCtoShape_shouldReturnTheCorrespondingRockPaperScissorsShape
 	s, err := translateABCtoShape("C")
 	assert.Nil(t, err)
 	assert.Equal(t, s, scissors)
+}
+
+func Test_findOutcome(t *testing.T) {
+	_, err := findOutcome(shape(""), shape(""))
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	_, err = findOutcome(rock, shape(""))
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	_, err = findOutcome(shape(""), rock)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	o, err := findOutcome(rock, rock)
+	assert.Nil(t, err)
+	assert.Equal(t, draw, o)
+
+	o, err = findOutcome(rock, scissors)
+	assert.Nil(t, err)
+	assert.Equal(t, lose, o)
+
+	o, err = findOutcome(paper, scissors)
+	assert.Nil(t, err)
+	assert.Equal(t, win, o)
 }
