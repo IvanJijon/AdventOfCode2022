@@ -7,6 +7,24 @@ import (
 	"strings"
 )
 
+// Part One To-do list:
+// - Create a type shape with constants rock, paper, scissors
+// - Create translating functions XYZ or ABC -> rock, paper, scissors
+// - Create a type outcome and constants win, draw,lose
+// - Create an structure round with oponentMove, myMove and outcome
+// - Create a table with all the possible scenarios and outcomes, eg:
+// oponent's shape	|  my shape | outcome
+// -----------------------------------------
+// 		paper		|   rock 	| 	lose
+// 		rock		|   paper 	| 	win
+// 		scissors	|  scissors	| 	draw
+// ...
+// - Create a way to read the outcome of a round
+//  based on both my oponent's move and mine
+// - Create a way to retrieve the score I made in a round
+//  based on both my oponent's move and mine
+// - Find a way to keep track of the score
+
 type shape string
 
 const (
@@ -122,21 +140,3 @@ func SolvePartOne(inputFile string) (int, error) {
 
 	return score, err
 }
-
-// To-do list:
-// - Create a type shape with constants rock, paper, scissors
-// - Create translating functions XYZ or ABC -> rock, paper, scissors
-// - Create a type outcome and constants win, draw,lose
-// - Create an structure round with oponentMove, myMove and outcome
-// - Create a table with all the possible scenarios and outcomes, eg:
-// oponent's shape	|  my shape | outcome
-// -----------------------------------------
-// 		paper		|   rock 	| 	lose
-// 		rock		|   paper 	| 	win
-// 		scissors	|  scissors	| 	draw
-// ...
-// - Create a way to read the outcome of a round
-//  based on both my oponent's move and mine
-// - Create a way to retrieve the score I made in a round
-//  based on both my oponent's move and mine
-// - Find a way to keep track of the score
