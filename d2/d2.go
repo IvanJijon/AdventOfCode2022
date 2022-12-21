@@ -53,7 +53,7 @@ func SolvePartOne(inputFile string) (int, error) {
 	return score, err
 }
 
-// Part One To-do list:
+// Part Two To-do list:
 // - Create a function that translates XYZ to the desired outcome
 // - Create a function that, based on the opponent's move and what outcome I am supposed to get (win, draw or lose)
 // it will tell me which shape should I use for the round
