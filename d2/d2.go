@@ -140,3 +140,66 @@ func SolvePartOne(inputFile string) (int, error) {
 
 	return score, err
 }
+
+// Part One To-do list:
+// - Create a function that translates XYZ to the desired outcome
+// - Create a function that, based on the opponent's move and what outcome I am supposed to get (win, draw or lose)
+// it will tell me which shape should I use for the round
+
+func translateXYZToDesiredOutcome(s string) (outcome, error) {
+	if s == "X" {
+		return lose, nil
+	}
+
+	if s == "Y" {
+		return draw, nil
+	}
+
+	if s == "Z" {
+		return win, nil
+	}
+
+	return "", errors.New("input unknown")
+}
+
+func findShapeIMustUse(om shape, desiredOutcome outcome) (shape, error) {
+	for _, scenario := range scenariosTable {
+		if scenario.oponentMove == om && scenario.outcome == desiredOutcome {
+			return scenario.myMove, nil
+		}
+	}
+	return shape(""), errors.New("scenario not found")
+}
+
+func SolvePartTwo(inputFile string) (int, error) {
+	f, err := os.Open(inputFile)
+	if err != nil {
+		return -1, err
+	}
+	defer f.Close()
+	scanner := bufio.NewScanner(f)
+
+	score := 0
+	for scanner.Scan() {
+		moves := strings.Fields(scanner.Text())
+		om, err := translateABCtoShape(moves[0])
+		if err != nil {
+			return -1, err
+		}
+		do, err := translateXYZToDesiredOutcome(moves[1])
+		if err != nil {
+			return -1, err
+		}
+		mm, err := findShapeIMustUse(om, do)
+		if err != nil {
+			return -1, err
+		}
+		s, err := scenarioScore(om, mm)
+		if err != nil {
+			return -1, err
+		}
+		score += s
+	}
+
+	return score, err
+}

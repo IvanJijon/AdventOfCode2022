@@ -118,3 +118,61 @@ func Test_SolvePartOne(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, 10718, solution)
 }
+
+func Test_translateXYZToDesiredOutcome_shouldReturnTheCorrespondingLoseDrawWinOutcomeForXYZ(t *testing.T) {
+
+	_, err := translateXYZToDesiredOutcome("")
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("input unknown"), err)
+	}
+
+	_, err = translateXYZToDesiredOutcome("W")
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("input unknown"), err)
+	}
+
+	l, err := translateXYZToDesiredOutcome("X")
+	assert.Nil(t, err)
+	assert.Equal(t, l, lose)
+
+	d, err := translateXYZToDesiredOutcome("Y")
+	assert.Nil(t, err)
+	assert.Equal(t, d, draw)
+
+	w, err := translateXYZToDesiredOutcome("Z")
+	assert.Nil(t, err)
+	assert.Equal(t, w, win)
+}
+
+func Test_shapeIMustUse_tellsMeTheShapeIMustUseToObtainTheDesiredOutcomeBasedOnTheOponentsMove(t *testing.T) {
+
+	_, err := findShapeIMustUse(shape(""), outcome(""))
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	_, err = findShapeIMustUse(rock, outcome(""))
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	_, err = findShapeIMustUse(shape(""), lose)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("scenario not found"), err)
+	}
+
+	s, _ := findShapeIMustUse(rock, win)
+	assert.Equal(t, paper, s)
+
+	s, _ = findShapeIMustUse(scissors, draw)
+	assert.Equal(t, scissors, s)
+
+	s, _ = findShapeIMustUse(paper, lose)
+	assert.Equal(t, rock, s)
+}
+
+func Test_SolvePartTwo(t *testing.T) {
+	solution, err := SolvePartTwo("input")
+	assert.Nil(t, err)
+	assert.Equal(t, 14652, solution)
+}
