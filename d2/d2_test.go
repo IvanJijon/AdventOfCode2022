@@ -55,35 +55,6 @@ func Test_translateABCtoShape_shouldReturnTheCorrespondingRockPaperScissorsShape
 	assert.Equal(t, s, scissors)
 }
 
-func Test_findOutcome(t *testing.T) {
-	_, err := findOutcome(shape(""), shape(""))
-	if assert.Error(t, err) {
-		assert.Equal(t, errors.New("scenario not found"), err)
-	}
-
-	_, err = findOutcome(rock, shape(""))
-	if assert.Error(t, err) {
-		assert.Equal(t, errors.New("scenario not found"), err)
-	}
-
-	_, err = findOutcome(shape(""), rock)
-	if assert.Error(t, err) {
-		assert.Equal(t, errors.New("scenario not found"), err)
-	}
-
-	o, err := findOutcome(rock, rock)
-	assert.Nil(t, err)
-	assert.Equal(t, draw, o)
-
-	o, err = findOutcome(rock, scissors)
-	assert.Nil(t, err)
-	assert.Equal(t, lose, o)
-
-	o, err = findOutcome(paper, scissors)
-	assert.Nil(t, err)
-	assert.Equal(t, win, o)
-}
-
 func Test_scenarioScore(t *testing.T) {
 	_, err := scenarioScore(shape(""), shape(""))
 	if assert.Error(t, err) {

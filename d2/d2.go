@@ -94,15 +94,6 @@ var scenariosTable = []*round{
 	{scissors, scissors, draw, 6},
 }
 
-func findOutcome(om shape, mm shape) (outcome, error) {
-	for _, scenario := range scenariosTable {
-		if scenario.oponentMove == om && scenario.myMove == mm {
-			return scenario.outcome, nil
-		}
-	}
-	return outcome(""), errors.New("scenario not found")
-}
-
 func scenarioScore(om shape, mm shape) (int, error) {
 	for _, scenario := range scenariosTable {
 		if scenario.oponentMove == om && scenario.myMove == mm {
