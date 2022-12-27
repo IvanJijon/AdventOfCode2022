@@ -114,4 +114,36 @@ func solvePartOne(inputFile string) (int, error) {
 //   they carry in their rucksacks
 // - Using stringToPriority keep the sum of the priorities
 //   found for each group identifier
-//
+
+// I would like to rewrite this function in a recursive way
+func findCommonLetterAmongThreeElves(e1, e2, e3 string) string {
+	for _, c := range e1 {
+		if strings.Contains(e2, string(c)) && strings.Contains(e3, string(c)) {
+			return string(c)
+		}
+	}
+	return ""
+}
+
+func solvePartTwo(inputFile string) (int, error) {
+	f, err := os.Open(inputFile)
+	if err != nil {
+		return -1, err
+	}
+	defer f.Close()
+	scanner := bufio.NewScanner(f)
+
+	var sum int
+	for scanner.Scan() {
+		e1 := scanner.Text()
+		scanner.Scan()
+		e2 := scanner.Text()
+		scanner.Scan()
+		e3 := scanner.Text()
+
+		sum += stringToPriority[findCommonLetterAmongThreeElves(e1, e2, e3)]
+
+	}
+	return sum, nil
+
+}
