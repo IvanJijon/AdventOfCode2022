@@ -68,7 +68,7 @@ func solvePartOne(inputFile string) (int, error) {
 	defer f.Close()
 	scanner := bufio.NewScanner(f)
 
-	var sum int
+	sum := 0
 	for scanner.Scan() {
 		sap, _ := newSectionAssignmentPair(scanner.Text())
 		e1, e2 := &elf{}, &elf{}
