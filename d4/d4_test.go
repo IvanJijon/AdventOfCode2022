@@ -85,10 +85,48 @@ func Test_containsOrIsContainedBy_returnsTrueIfASectionIsContainedByAnotherFalse
 	assert.True(t, s1.containsOrIsContainedBy(s2))
 }
 
+func Test_overlapsWith_returnsTrueIfSectionsOverlapFalseIfNot(t *testing.T) {
+	s1 := newSection("1-1") //1.........
+	s2 := newSection("5-5") //....5.....
+	assert.False(t, s1.overlapsWith(s2))
+
+	s1 = newSection("5-6") //....56....
+	s2 = newSection("7-8") //......78..
+	assert.False(t, s1.overlapsWith(s2))
+
+	s1 = newSection("4-8") //...45678..
+	s2 = newSection("5-7") //....567...
+	assert.True(t, s1.overlapsWith(s2))
+
+	s1 = newSection("5-7") //....567...
+	s2 = newSection("5-7") //....567...
+	assert.True(t, s1.overlapsWith(s2))
+
+	s1 = newSection("5-7") //....567...
+	s2 = newSection("4-8") //...45678..
+	assert.True(t, s1.overlapsWith(s2))
+
+	s1 = newSection("1-3") //123.......
+	s2 = newSection("3-5") //..345.....
+	assert.True(t, s1.overlapsWith(s2))
+
+	s1 = newSection("4-8") //...45678..
+	s2 = newSection("2-5") //.2345.....
+	assert.True(t, s1.overlapsWith(s2))
+}
+
 func Test_solvePartOne(t *testing.T) {
 	r, _ := solvePartOne("test_input1")
 	assert.Equal(t, 2, r)
 
 	r, _ = solvePartOne("input")
 	assert.Equal(t, 477, r)
+}
+
+func Test_solvePartTwo(t *testing.T) {
+	r, _ := solvePartTwo("test_input1")
+	assert.Equal(t, 4, r)
+
+	r, _ = solvePartTwo("input")
+	assert.Equal(t, 830, r)
 }

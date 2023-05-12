@@ -38,6 +38,12 @@ func (s1 section) containsOrIsContainedBy(s2 section) bool {
 	return s1.isContainedBy(s2) || s2.isContainedBy(s1)
 }
 
+func (s1 section) overlapsWith(s2 section) bool {
+	cond1 := s1.upperBound >= s2.lowerBound && s1.upperBound <= s2.upperBound
+	cond2 := s1.lowerBound >= s2.lowerBound && s1.lowerBound <= s2.upperBound
+	return cond1 || cond2 || s1.containsOrIsContainedBy(s2)
+}
+
 type sectionAssignmentPair struct {
 	sections [2]section
 }
@@ -74,6 +80,26 @@ func solvePartOne(inputFile string) (int, error) {
 		e1, e2 := &elf{}, &elf{}
 		sap.assignSectionsTo(e1, e2)
 		if e1.s.containsOrIsContainedBy(e2.s) {
+			sum += 1
+		}
+	}
+	return sum, nil
+}
+
+func solvePartTwo(inputFile string) (int, error) {
+	f, err := os.Open(inputFile)
+	if err != nil {
+		return -1, err
+	}
+	defer f.Close()
+	scanner := bufio.NewScanner(f)
+
+	sum := 0
+	for scanner.Scan() {
+		sap, _ := newSectionAssignmentPair(scanner.Text())
+		e1, e2 := &elf{}, &elf{}
+		sap.assignSectionsTo(e1, e2)
+		if e1.s.overlapsWith(e2.s) {
 			sum += 1
 		}
 	}
