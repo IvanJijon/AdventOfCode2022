@@ -41,7 +41,7 @@ func Test_assignSectionsTo_assignsTheCorrespondingSectionToEachElf(t *testing.T)
 	assert.Equal(t, newSection("4-5"), e2.s)
 }
 
-func Test_isContainedIn_returnsTrueIfASectionIsContainedByAnotherFalseIfNot(t *testing.T) {
+func Test_isContainedIn_returnsTrueIfSection1IsContainedBySection2FalseIfNot(t *testing.T) {
 	s1 := newSection("1-1") //1.........
 	s2 := newSection("5-5") //....5.....
 	assert.False(t, s1.isContainedBy(s2))
